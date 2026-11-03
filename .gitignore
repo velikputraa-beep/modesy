@@ -31,7 +31,30 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
+# Semua varian .env, .env.local, .env.production, .env.*.local diabaikan.
+# Hanya template tanpa nilai asli (.env.example / .env.sample) yang boleh ikut ter-commit.
 .env*
+!.env.example
+!.env.sample
+
+# secrets & key files
+*.key
+*.p12
+*.pfx
+secrets.json
+service-account*.json
+
+# local backup / dump database
+*.sql.bak
+*.bak
+dump.sql
+/backup/
+/backups/
+
+# supabase CLI artifacts (berisi token & data lokal)
+/supabase/.temp/
+/supabase/data/
+/supabase/.branches/
 
 # vercel
 .vercel
@@ -39,3 +62,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# logs
+logs/
+*.log
+
+# editor & OS
+.idea/
+.vscode/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini

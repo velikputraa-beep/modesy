@@ -1,0 +1,291 @@
+import Link from "next/link";
+import { getNavCategories } from "@/lib/queries/categories";
+import { getActivePages } from "@/lib/queries/pages";
+import { FooterNewsletter } from "@/components/layout/FooterNewsletter";
+
+function FacebookIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    </svg>
+  );
+}
+
+function TwitterIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function WhatsAppIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.952 1.18-.175.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.494-.894-.799-1.5-1.786-1.675-2.087-.175-.301-.019-.464.132-.614.136-.135.301-.351.451-.527.151-.175.201-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.63-.927-2.232-.244-.587-.493-.507-.676-.516l-.577-.01c-.2 0-.526.075-.802.376-.275.301-1.052 1.028-1.052 2.507 0 1.48 1.077 2.909 1.228 3.109.15.2 2.12 3.238 5.136 4.542.717.311 1.277.496 1.713.635.72.229 1.375.197 1.893.119.578-.087 1.78-.727 2.03-1.43.25-.702.25-1.304.175-1.43-.075-.125-.275-.2-.576-.35zM12.04 2C6.519 2 2.03 6.486 2.03 12.008c0 1.763.46 3.484 1.334 5.002L2 22l5.132-1.347c1.467.8 3.12 1.223 4.908 1.223 5.52 0 10.01-4.486 10.01-10.008C22.05 6.486 17.56 2 12.04 2z" />
+    </svg>
+  );
+}
+
+function PinterestIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" />
+    </svg>
+  );
+}
+
+function LinkedInIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+    </svg>
+  );
+}
+
+function TelegramIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+    </svg>
+  );
+}
+
+function YoutubeIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  );
+}
+
+function InstagramIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+    </svg>
+  );
+}
+
+function TikTokIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...props}>
+      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.16 1.18 2.09 2.35 2.33.72.15 1.48.06 2.16-.23.83-.34 1.48-1.05 1.76-1.9.15-.46.22-.95.21-1.44V.02z" />
+    </svg>
+  );
+}
+
+const STATIC_QUICK_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "Products", href: "/products" },
+  { label: "Blog", href: "/blog" },
+  { label: "Shops", href: "/shops" },
+  { label: "Help Center", href: "/help-center" },
+  { label: "Contact", href: "/contact" },
+];
+
+export async function Footer() {
+  const [navCategories, pages] = await Promise.all([getNavCategories(), getActivePages()]);
+
+  const staticSlugs = new Set(["privacy-policy", "cookie-policy", "contact", "help-faq"]);
+  const cmsPages = pages
+    .filter((page) => page.content && !staticSlugs.has(page.slug))
+    .filter((page) => !page.location || page.location.includes("Footer"))
+    .slice(0, 6);
+
+  const quickLinks = [
+    ...STATIC_QUICK_LINKS,
+    ...cmsPages.map((page) => ({ label: page.title, href: `/pages/${page.slug}` })),
+  ];
+
+  return (
+    <footer className="border-t border-gray-200 bg-white text-gray-600">
+      {/* Kolom Utama Footer */}
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {/* KOLOM 1: Brand (Logo, Deskripsi, Social Icons) */}
+          <div className="space-y-4">
+            <Link href="/" className="inline-block">
+              <span className="text-2xl font-black tracking-tight text-gray-950 font-sans">
+                <span className="text-[#14B8A6]">M</span>
+                odes
+                <span className="text-[#14B8A6]">y</span>
+              </span>
+            </Link>
+            <p className="text-xs leading-relaxed text-gray-500 sm:text-sm">
+              Modesy is a modern e-commerce marketplace where buyers and sellers
+              connect with ease. Shop for unique items or grow your business online with
+              flexible payment and multi-vendor tools.
+            </p>
+            {/* Social Icons Row (9 icons) */}
+            <div className="flex flex-wrap items-center gap-2 pt-2">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <FacebookIcon />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter / X"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <TwitterIcon />
+              </a>
+              <a
+                href="https://whatsapp.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <WhatsAppIcon />
+              </a>
+              <a
+                href="https://pinterest.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Pinterest"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <PinterestIcon />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <LinkedInIcon />
+              </a>
+              <a
+                href="https://t.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Telegram"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <TelegramIcon />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <YoutubeIcon />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <InstagramIcon />
+              </a>
+              <a
+                href="https://tiktok.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="flex size-8 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-[#14B8A6] hover:text-white cursor-pointer"
+              >
+                <TikTokIcon />
+              </a>
+            </div>
+          </div>
+
+          {/* KOLOM 2: CATEGORIES */}
+          <div>
+            <h4 className="text-sm font-bold tracking-wider text-gray-900 uppercase">
+              CATEGORIES
+            </h4>
+            <ul className="mt-4 space-y-2.5 text-xs text-gray-500 sm:text-sm">
+              {navCategories.map((cat) => (
+                <li key={cat.name}>
+                  <Link
+                    href={cat.href}
+                    className="transition-colors hover:text-[#14B8A6]"
+                  >
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* KOLOM 3: QUICK LINKS */}
+          <div>
+            <h4 className="text-sm font-bold tracking-wider text-gray-900 uppercase">
+              QUICK LINKS
+            </h4>
+            <ul className="mt-4 space-y-2.5 text-xs text-gray-500 sm:text-sm">
+              {quickLinks.map((link) => (
+                <li key={link.href + link.label}>
+                  <Link
+                    href={link.href}
+                    className="transition-colors hover:text-[#14B8A6]"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* KOLOM 4: NEWSLETTER */}
+          <div>
+            <h4 className="text-sm font-bold tracking-wider text-gray-900 uppercase">
+              NEWSLETTER
+            </h4>
+            <p className="mt-4 text-xs leading-relaxed text-gray-500 sm:text-sm">
+              Join our subscribers list to get the latest news, updates and
+              special offers directly in your inbox.
+            </p>
+            <FooterNewsletter />
+
+            {/* Payment Icons */}
+            <div className="mt-6 flex flex-wrap items-center gap-2">
+              <span className="rounded border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-bold text-blue-700 tracking-wider">
+                VISA
+              </span>
+              <span className="rounded border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-bold text-red-600 tracking-wide">
+                Mastercard
+              </span>
+              <span className="rounded border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-bold text-sky-600 tracking-wider">
+                AMEX
+              </span>
+              <span className="rounded border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-bold text-indigo-700 tracking-wide">
+                PayPal
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bagian Bawah Copyright */}
+      <div className="border-t border-gray-200 bg-[#F9FAFB] py-5">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-xs text-gray-500 sm:flex-row sm:px-6 lg:px-8">
+          <p>Copyright 2026 Modesy - All Rights Reserved</p>
+          <div className="flex items-center gap-6">
+            <Link href="/pages/privacy" className="text-teal-600 hover:text-teal-700 transition-colors font-medium">
+              Privacy Policy
+            </Link>
+            <span className="text-gray-300">|</span>
+            <Link href="/pages/cookie" className="text-teal-600 hover:text-teal-700 transition-colors font-medium">
+              Cookie Policy
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
